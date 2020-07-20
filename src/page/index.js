@@ -2,7 +2,8 @@ import React from "react";
 
 function Index() {
   return <div>
-      新闻首页
+      <h2>我的新闻首页</h2>
+      <p>Service worker demo</p>
   </div>;
 }
 

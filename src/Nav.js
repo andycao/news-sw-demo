@@ -10,7 +10,7 @@ function Nav() {
           </NavLink>
         </li>
         <li>
-          <NavLink to="/list" activeClassName="active">
+          <NavLink to="/news" activeClassName="active">
             List
           </NavLink>
         </li>

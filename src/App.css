@@ -31,3 +31,9 @@ a {
 .active {
   color: #61dafb;
 }
+.title{
+    cursor: pointer;
+}
+.title:hover h2{
+    color: #4173d6;
+}
