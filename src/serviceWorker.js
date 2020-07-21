@@ -33,17 +33,14 @@ export function register(config) {
         }
 
         window.addEventListener("load", () => {
-            console.log("sw load");
-
+            console.log("loaded");
             const swUrl = `${process.env.PUBLIC_URL}/sw.js`;
 
             // localhost被认为是安全的域
             if (isLocalhost) {
-                // This is running on localhost. Let's check if a service worker still exists or not.
+                // 检查service worker是否存在
                 checkValidServiceWorker(swUrl, config);
 
-                // Add some additional logging to localhost, pointing developers to the
-                // service worker/PWA documentation.
                 navigator.serviceWorker.ready.then(() => {
                     console.log("ready");
                 });
@@ -67,13 +64,6 @@ function registerValidSW(swUrl, config) {
                 installingWorker.onstatechange = () => {
                     if (installingWorker.state === "installed") {
                         if (navigator.serviceWorker.controller) {
-                            // At this point, the updated precached content has been fetched,
-                            // but the previous service worker will still serve the older
-                            // content until all client tabs are closed.
-                            console.log(
-                                "New content is available and will be used when all " +
-                                    "tabs for this page are closed. See https://bit.ly/CRA-PWA."
-                            );
 
                             // Execute callback
                             if (config && config.onUpdate) {
