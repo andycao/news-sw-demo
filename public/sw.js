@@ -4,6 +4,21 @@
 self.addEventListener("install", event => {
     console.log("installing");
     self.skipWaiting();
+
+    // 这里适合做静态资源预加载
+    event.waitUntil(
+        caches.open("install-cache3").then(function (cache) {
+            // 一般资源，非阻塞
+            // cache.addAll();
+
+            // 适合核心资源
+            return cache.addAll([
+                "/static/js/bundle.js",
+                "/style.css",
+                // etc
+            ]);
+        })
+    );
 });
 
 // 激活阶段
@@ -11,10 +26,15 @@ self.addEventListener("activate", event => {
     console.log("active");
 });
 
+// 响应请求
 self.addEventListener("fetch", event => {
     // cacheFirst(event);
     // networkFirst(event);
     myControl(event);
+});
+
+self.addEventListener("push", function (event) {
+    console.log("push ", event.data.text());
 });
 
 // 缓存优先, fallback到网络
@@ -59,7 +79,6 @@ function myControl(event) {
 
     // local request
     if (requestURL.origin == location.origin) {
-        console.log(requestURL.pathname);
         // api data
         if (
             event.request.method == "GET" &&
@@ -77,5 +96,24 @@ function myControl(event) {
     }
 
     // 默认逻辑
-    networkFirst(event);
+    event.respondWith(fetch(event.request));
+}
+
+// stale-while-revalidate
+function staleWhileRevalidate(event) {
+    self.addEventListener("fetch", function (event) {
+        event.respondWith(
+            caches.open("cacheName").then(function (cache) {
+                return cache.match(event.request).then(function (response) {
+                    var fetchPromise = fetch(event.request).then(function (
+                        networkResponse
+                    ) {
+                        cache.put(event.request, networkResponse.clone());
+                        return networkResponse;
+                    });
+                    return response || fetchPromise;
+                });
+            })
+        );
+    });
 }

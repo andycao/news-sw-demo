@@ -1,6 +1,7 @@
 {
-  "short_name": "News App",
+  "short_name": "每日新闻",
   "name": "我的新闻app",
+  "description": "这是一个demo新闻app，描述描述描述描述描述描述",
   "icons": [
     {
       "src": "favicon.ico",
@@ -8,9 +9,9 @@
       "type": "image/x-icon"
     },
     {
-      "src": "logo192.png",
+      "src": "logo128.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "128x128"
     },
     {
       "src": "logo512.png",
@@ -18,8 +19,8 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": ".",
+  "start_url": "./news",
   "display": "standalone",
-  "theme_color": "#333",
-  "background_color": "#eee"
+  "theme_color": "#51A3FA",
+  "background_color": "#51A3FA"
 }
